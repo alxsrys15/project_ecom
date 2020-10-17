@@ -15,6 +15,8 @@
       <li class="nav nav-pills"><a class="nav-link" href="#">link 1</a></li>
       <li class="nav nav-pills"><a class="nav-link" href="#">link 2</a></li>
       <li class="nav nav-pills"><a class="nav-link" href="#">link 3</a></li>
+      <?= $this->Html->link('NAME NG LINK', ['controller' => 'Users', 'action' => ''], ['class' => 'nav-link']) ?>
+
     </ul>
     <ul class="nav navbar-nav ml-auto">
       <li><a class="nav-link" href="">Login</a></li>

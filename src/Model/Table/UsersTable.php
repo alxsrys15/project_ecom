@@ -70,6 +70,10 @@ class UsersTable extends Table
             ->notEmptyString('password');
 
         $validator
+            ->decimal('coins_balance')
+            ->allowEmptyString('coins_balance');
+
+        $validator
             ->scalar('contact_no')
             ->maxLength('contact_no', 45)
             ->allowEmptyString('contact_no');

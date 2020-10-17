@@ -11,6 +11,7 @@ use Cake\ORM\Entity;
  * @property string $author
  * @property string|null $year_published
  * @property string|null $description
+ * @property string $cover_images
  * @property float $cash_price
  * @property float $coins_price
  * @property \Cake\I18n\FrozenTime|null $created
@@ -32,6 +33,7 @@ class EBook extends Entity
         'author' => true,
         'year_published' => true,
         'description' => true,
+        'cover_images' => true,
         'cash_price' => true,
         'coins_price' => true,
         'created' => true,
