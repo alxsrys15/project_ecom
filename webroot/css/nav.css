@@ -1,0 +1,9 @@
+  .navbar-custom { 
+            background-color: lightblue; 
+        } 
+        .nav>li>a.active,
+.nav>li>a:hover,
+.nav>li>a:focus {
+   background-color: #007bff;
+   color: #a4f4f9;
+}
