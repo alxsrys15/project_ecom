@@ -15,7 +15,7 @@
 </nav>
 <div class="users view large-9 medium-8 columns content">
     <h3><?= h($user->id) ?></h3>
-    <table class="vertical-table">
+    <table>
         <tr>
             <th scope="row"><?= __('First Name') ?></th>
             <td><?= h($user->first_name) ?></td>
@@ -29,32 +29,12 @@
             <td><?= h($user->email) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Password') ?></th>
-            <td><?= h($user->password) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Contact No') ?></th>
             <td><?= h($user->contact_no) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Activation Token') ?></th>
-            <td><?= h($user->activation_token) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Reset Token') ?></th>
-            <td><?= h($user->reset_token) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($user->id) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Coins Balance') ?></th>
             <td><?= $this->Number->format($user->coins_balance) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Is Admin') ?></th>
-            <td><?= $this->Number->format($user->is_admin) ?></td>
         </tr>
     </table>
 </div>

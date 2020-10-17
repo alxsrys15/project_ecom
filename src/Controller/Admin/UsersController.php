@@ -33,7 +33,7 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
-        $user = $this->Users->get($id, [
+        $user = $this->Users->get('1', [
             'contain' => [],
         ]);
 
