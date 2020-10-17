@@ -74,6 +74,12 @@ class EBooksTable extends Table
             ->allowEmptyString('description');
 
         $validator
+            ->scalar('cover_images')
+            ->maxLength('cover_images', 500)
+            ->requirePresence('cover_images', 'create')
+            ->notEmptyFile('cover_images');
+
+        $validator
             ->decimal('cash_price')
             ->requirePresence('cash_price', 'create')
             ->notEmptyString('cash_price');
