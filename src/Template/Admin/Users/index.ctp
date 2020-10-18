@@ -4,6 +4,27 @@
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
 ?>
+    <link href='https://fonts.googleapis.com/css?family=Adamina' rel='stylesheet'>
+        <style type="text/css">
+            table{
+                border-collapse: collapse;
+                border-spacing: 0;
+                font-family: adamina;
+                cursor: default;
+            }
+            tr:nth-child(odd) {
+                background: #f5f5f5;
+            }
+            tr:hover a{
+                background-color: #007bff;
+                color: white;
+            }
+            tr:hover{
+                background-color: #007bff;
+                color: white;
+            }
+
+        </style>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
