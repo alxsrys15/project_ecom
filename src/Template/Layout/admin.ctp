@@ -1,3 +1,6 @@
+<?php 
+$controller = strtolower($this->request->params['controller']);
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,11 +14,19 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-custom">
 <ul class="nav nav-pills link">
-      <li class="nav nav-pills"><a class="nav-link active" href="#">Alex</a></li>
-      <li class="nav nav-pills"><a class="nav-link" href="#">link 1</a></li>
-      <li class="nav nav-pills"><a class="nav-link" href="#">link 2</a></li>
-      <li class="nav nav-pills"><a class="nav-link" href="#">link 3</a></li>
-      <?= $this->Html->link('NAME NG LINK', ['controller' => 'Users', 'action' => ''], ['class' => 'nav-link']) ?>
+      <li class="nav nav-pills"><a class="nav-link" href="#">Alex</a></li>
+        <li class="nav nav-pills">
+            <?= $this->Html->link('Users', ['prefix' => 'admin', 'controller' => 'Users', 'action' => 'index'], ['class' => $controller === "users" ? 'nav-link active' : 'nav-link']) ?>
+        </li>
+        <li class="nav nav-pills">
+            <?= $this->Html->link('E-Books', ['prefix' => 'admin', 'controller' => 'Ebooks', 'action' => 'index'], ['class' => $controller === "ebooks" ? 'nav-link active' : 'nav-link']) ?>
+        </li>
+        <li class="nav nav-pills">
+            <?= $this->Html->link('Packages', ['prefix' => 'admin', 'controller' => 'Packages', 'action' => 'index'], ['class' => $controller === "packages" ? 'nav-link active' : 'nav-link']) ?>
+        </li>
+        <li class="nav nav-pills">
+            <?= $this->Html->link('Feeds', ['prefix' => 'admin', 'controller' => '', 'action' => 'index'], ['class' => $controller === "" ? 'nav-link active' : 'nav-link']) ?>
+        </li>
 
     </ul>
     <ul class="nav navbar-nav ml-auto">
@@ -30,6 +41,9 @@
       </li>
     </ul>
 </nav>
+<main>
+    <?= $this->fetch('content') ?>
+</main>
     <footer>
     </footer>
 </body>

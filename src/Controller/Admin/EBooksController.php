@@ -18,9 +18,10 @@ class EBooksController extends AppController
      * @return \Cake\Http\Response|null
      */
     public function index()
-    {
-        $eBooks = $this->paginate($this->EBooks);
+    {   
 
+        $eBooks = $this->paginate($this->Ebooks);
+        $this->viewBuilder()->setLayout('admin');
         $this->set(compact('eBooks'));
     }
 
@@ -33,7 +34,7 @@ class EBooksController extends AppController
      */
     public function view($id = null)
     {
-        $eBook = $this->EBooks->get($id, [
+        $eBook = $this->Ebooks->get($id, [
             'contain' => [],
         ]);
 
@@ -47,10 +48,10 @@ class EBooksController extends AppController
      */
     public function add()
     {
-        $eBook = $this->EBooks->newEntity();
+        $eBook = $this->Ebooks->newEntity();
         if ($this->request->is('post')) {
-            $eBook = $this->EBooks->patchEntity($eBook, $this->request->getData());
-            if ($this->EBooks->save($eBook)) {
+            $eBook = $this->Ebooks->patchEntity($eBook, $this->request->getData());
+            if ($this->Ebooks->save($eBook)) {
                 $this->Flash->success(__('The e book has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -73,8 +74,8 @@ class EBooksController extends AppController
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $eBook = $this->EBooks->patchEntity($eBook, $this->request->getData());
-            if ($this->EBooks->save($eBook)) {
+            $eBook = $this->Ebooks->patchEntity($eBook, $this->request->getData());
+            if ($this->Ebooks->save($eBook)) {
                 $this->Flash->success(__('The e book has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -94,7 +95,7 @@ class EBooksController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $eBook = $this->EBooks->get($id);
+        $eBook = $this->Ebooks->get($id);
         if ($this->EBooks->delete($eBook)) {
             $this->Flash->success(__('The e book has been deleted.'));
         } else {
