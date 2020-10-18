@@ -4,25 +4,73 @@
  * @var \App\Model\Entity\EBook $eBook
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List E Books'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="eBooks form large-9 medium-8 columns content">
-    <?= $this->Form->create($eBook) ?>
-    <fieldset>
-        <legend><?= __('Add E Book') ?></legend>
-        <?php
-            echo $this->Form->control('title');
-            echo $this->Form->control('author');
-            echo $this->Form->control('year_published');
-            echo $this->Form->control('description');
-            echo $this->Form->control('cash_price');
-            echo $this->Form->control('coins_price');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<?= $this->Form->create(null,['url' => ['action' => 'add'], 'enctype' => 'multipart/form-data', 'id' => 'ebook-form']) ?>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="col-sm-12">
+            <label for="title" class="col-form-label">Title</label>
+            <?= $this->Form->control('title', ['class'=> 'form-control', 'label' => false, 'required' => true]) ?>
+        </div>
+        <div class="col-sm-12">
+            <label for="author" class="col-form-label">Author</label>
+            <?= $this->Form->control('author', ['class'=> 'form-control', 'label' => false, 'required' => true]) ?>
+        </div>
+        <div class="col-sm-12">
+            <label for="year_published" class="col-form-label">Year Published</label>
+            <?= $this->Form->control('year_published', ['class'=> 'form-control', 'label' => false ,'type' => 'select', 'options' => $years_option, 'default' => date('Y'), 'required' => true]) ?>
+        </div>
+        <div class="col-sm-12">
+            <label for="description" class="col-form-label">Description</label>
+            <?= $this->Form->control('description', ['class'=> 'form-control', 'label' => false ,'type' => 'textarea']) ?>
+        </div>
+        <div class="col-sm-12">
+            <label for="description" class="col-form-label">Price(cash)</label>
+            <?= $this->Form->control('cash_price', ['class'=> 'form-control text-right', 'label' => false ,'type' => 'number', 'step' => 0.01, 'min' => '0', 'value' => '0', 'required' => true]) ?>
+        </div>
+        <div class="col-sm-12">
+            <label for="description" class="col-form-label">Price(coins)</label>
+            <?= $this->Form->control('coins_price', ['class'=> 'form-control text-right', 'label' => false ,'type' => 'number', 'step' => 0.01, 'min' => '0', 'value' => '0', 'required' => true]) ?>
+        </div>
+        <div class="col-sm-12">
+            <button class="btn btn-primary" type="submit">Add E-Book</button>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <h4>Cover Image</h4>
+        <div class="col-sm-12">
+            <?= $this->Html->image('default-image.jpg', ['class' => 'img-fluid preview', 'style' => ['cursor: pointer']]) ?>
+        </div>
+        <?= $this->Form->control('cover_image', ['type' => 'file', 'class' => 'd-none uploader', 'label' => false]) ?>
+    </div>
+    
 </div>
+<?= $this->Form->end(); ?>
+
+<script type="text/javascript">
+    function readURL (input, uploader) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+              $('.preview').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+         }
+    }
+    $(document).ready(function () {
+        $('.preview').on('click', function () {
+            $('.uploader').trigger('click');
+        });
+
+        $('.uploader').on('change', function () {
+            readURL(this, $(this));
+        });
+
+        $('#ebook-form').on('submit', function () {
+            const img_val = $('#cover-image').val();
+            if (img_val === "") {
+                alert('Please select a cover image');
+                return false;
+            }
+        });
+    });
+</script>

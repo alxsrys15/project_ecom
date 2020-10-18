@@ -80,6 +80,12 @@ class EBooksTable extends Table
             ->notEmptyFile('cover_images');
 
         $validator
+            ->scalar('pdf_file')
+            ->maxLength('pdf_file', 500)
+            ->requirePresence('pdf_file', 'create')
+            ->notEmptyFile('pdf_file');
+
+        $validator
             ->decimal('cash_price')
             ->requirePresence('cash_price', 'create')
             ->notEmptyString('cash_price');

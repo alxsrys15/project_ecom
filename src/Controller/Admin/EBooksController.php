@@ -2,6 +2,7 @@
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * EBooks Controller
@@ -12,6 +13,11 @@ use App\Controller\AppController;
  */
 class EBooksController extends AppController
 {
+
+    public function beforeFilter (Event $event) {
+        parent::beforeFilter($event);
+        $this->Auth->allow(['index','add','edit','view']);
+    }
     /**
      * Index method
      *
@@ -21,7 +27,7 @@ class EBooksController extends AppController
     {   
 
         $eBooks = $this->paginate($this->Ebooks);
-        $this->viewBuilder()->setLayout('admin');
+        
         $this->set(compact('eBooks'));
     }
 
@@ -48,9 +54,19 @@ class EBooksController extends AppController
      */
     public function add()
     {
-        $eBook = $this->Ebooks->newEntity();
+        $years_option = [];
+        foreach (range(1990, date('Y')) as $year) {
+            $years_option[$year] = $year; 
+        }
         if ($this->request->is('post')) {
-            $eBook = $this->Ebooks->patchEntity($eBook, $this->request->getData());
+            $data = $this->request->getData();
+            $new_ebook = $this->Ebook->newEntity();
+            $arr_ext = ['jpg', 'jpeg', 'png'];
+            if (in_array(pathinfo($data['cover_image']['name'], PATHINFO_EXTENSION), $arr_ext)) {
+                
+            } else {
+                $this->Flash->error('Please select an image');
+            }
             if ($this->Ebooks->save($eBook)) {
                 $this->Flash->success(__('The e book has been saved.'));
 
@@ -58,7 +74,7 @@ class EBooksController extends AppController
             }
             $this->Flash->error(__('The e book could not be saved. Please, try again.'));
         }
-        $this->set(compact('eBook'));
+        $this->set(compact('years_option'));
     }
 
     /**
