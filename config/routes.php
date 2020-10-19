@@ -64,10 +64,13 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
 
+    $routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
+    $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
+
     /*
      * ...and connect the rest of 'Pages' controller's URLs.
      */
-    $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
+    
 
     /*
      * Connect catchall routes for all controllers.
@@ -94,7 +97,7 @@ Router::scope('/', function (RouteBuilder $routes) {
 Router::prefix('admin', function (RouteBuilder $routes) {
     // All routes here will be prefixed with `/admin`
     // And have the prefix => admin route element added.
-    $routes->connect('/', ['controller' => 'EBooks', 'action' => 'index']);
+    $routes->connect('/', ['controller' => 'Users', 'action' => 'index']);
     $routes->fallbacks(DashedRoute::class);
 });
 

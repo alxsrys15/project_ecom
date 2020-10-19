@@ -1,6 +1,10 @@
+<?php 
+$controller = strtolower($this->request->params['controller']);
+?>
 <!DOCTYPE html>
 <html>
 <head>
+    <title>ECOMMERCE</title>
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
@@ -11,10 +15,20 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-custom">
         <ul class="nav nav-pills link">
-            <li class="nav nav-pills"><a class="nav-link active" href="#">Alex</a></li>
-            <li class="nav nav-pills"><a class="nav-link" href="#">link 1</a></li>
-            <li class="nav nav-pills"><a class="nav-link" href="#">link 2</a></li>
-            <li class="nav nav-pills"><a class="nav-link" href="#">link 3</a></li>
+            <li class="nav nav-pills"><a class="nav-link" href="#">Alex</a></li>
+            <li class="nav nav-pills">
+                <?= $this->Html->link('Users', ['prefix' => 'admin', 'controller' => 'Users', 'action' => 'index'], ['class' => $controller === "users" ? 'nav-link active' : 'nav-link']) ?>
+            </li>
+            <li class="nav nav-pills">
+                <?= $this->Html->link('E-Books', ['prefix' => 'admin', 'controller' => 'Ebooks', 'action' => 'index'], ['class' => $controller === "ebooks" ? 'nav-link active' : 'nav-link']) ?>
+            </li>
+            <li class="nav nav-pills">
+                <?= $this->Html->link('Packages', ['prefix' => 'admin', 'controller' => 'Packages', 'action' => 'index'], ['class' => $controller === "packages" ? 'nav-link active' : 'nav-link']) ?>
+            </li>
+            <li class="nav nav-pills">
+                <?= $this->Html->link('Feeds', ['prefix' => 'admin', 'controller' => '', 'action' => 'index'], ['class' => $controller === "" ? 'nav-link active' : 'nav-link']) ?>
+            </li>
+            
         </ul>
         <ul class="nav navbar-nav ml-auto">
             <li><a class="nav-link" href="">Login</a></li>

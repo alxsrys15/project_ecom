@@ -4,6 +4,27 @@
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
 ?>
+    <link href='https://fonts.googleapis.com/css?family=Adamina' rel='stylesheet'>
+        <style type="text/css">
+            table{
+                border-collapse: collapse;
+                border-spacing: 0;
+                font-family: adamina;
+                cursor: default;
+            }
+            tr:nth-child(odd) {
+                background: #f5f5f5;
+            }
+            tr:hover a{
+                background-color: #007bff;
+                color: white;
+            }
+            tr:hover{
+                background-color: #007bff;
+                color: white;
+            }
+
+        </style>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
@@ -12,7 +33,7 @@
 </nav>
 <div class="users index large-9 medium-8 columns content">
     <h3><?= __('Users') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+    <table cellpadding="0" cellspacing="0" class="table">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>

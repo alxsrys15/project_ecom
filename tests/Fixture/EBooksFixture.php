@@ -21,6 +21,7 @@ class EBooksFixture extends TestFixture
         'year_published' => ['type' => 'string', 'length' => 4, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'description' => ['type' => 'string', 'length' => 500, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'cover_images' => ['type' => 'string', 'length' => 500, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'pdf_file' => ['type' => 'string', 'length' => 500, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'cash_price' => ['type' => 'decimal', 'length' => 11, 'precision' => 2, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => ''],
         'coins_price' => ['type' => 'decimal', 'length' => 11, 'precision' => 2, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => ''],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
@@ -49,10 +50,11 @@ class EBooksFixture extends TestFixture
                 'year_published' => 'Lo',
                 'description' => 'Lorem ipsum dolor sit amet',
                 'cover_images' => 'Lorem ipsum dolor sit amet',
+                'pdf_file' => 'Lorem ipsum dolor sit amet',
                 'cash_price' => 1.5,
                 'coins_price' => 1.5,
-                'created' => '2020-10-17 03:55:10',
-                'modified' => '2020-10-17 03:55:10',
+                'created' => '2020-10-18 14:16:26',
+                'modified' => '2020-10-18 14:16:26',
             ],
         ];
         parent::init();
