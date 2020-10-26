@@ -60,18 +60,29 @@ class EBooksController extends AppController
         }
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $new_ebook = $this->Ebook->newEntity();
+            $new_ebook = $this->Ebooks->newEntity();
             $arr_ext = ['jpg', 'jpeg', 'png'];
-            if (in_array(pathinfo($data['cover_image']['name'], PATHINFO_EXTENSION), $arr_ext)) {
-                
+            $valid_pdf = in_array(pathinfo($data['pdf_file']['name'], PATHINFO_EXTENSION), ['pdf']);
+            $valid_image = in_array(pathinfo($data['cover_image']['name'], PATHINFO_EXTENSION), $arr_ext);
+            if ($valid_pdf && $valid_image) {
+                if (move_uploaded_file($data['pdf_file']['tmp_name'], WWW_ROOT . 'assets/' . $data['pdf_file']['name']) && move_uploaded_file($data['cover_image']['tmp_name'], WWW_ROOT . 'img/ebook_images/' . $data['cover_image']['name'])) {
+                    $save_data = $data;
+                    $save_data['pdf_file'] = $data['pdf_file']['name'];
+                    $save_data['cover_images'] = $data['cover_image']['name'];
+                    $new_ebook = $this->Ebooks->patchEntity($new_ebook, $save_data);
+                    if ($this->Ebooks->save($new_ebook)) {
+                        $this->Flash->success('Ebook has been added');
+                        return $this->redirect(['action' => 'index']);
+                    }
+                }
             } else {
-                $this->Flash->error('Please select an image');
+                $this->Flash->error('Invalid file format');
             }
-            if ($this->Ebooks->save($eBook)) {
-                $this->Flash->success(__('The e book has been saved.'));
+            // if ($this->Ebooks->save($eBook)) {
+            //     $this->Flash->success(__('The e book has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
-            }
+            //     return $this->redirect(['action' => 'index']);
+            // }
             $this->Flash->error(__('The e book could not be saved. Please, try again.'));
         }
         $this->set(compact('years_option'));

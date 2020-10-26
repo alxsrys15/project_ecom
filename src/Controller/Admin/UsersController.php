@@ -3,8 +3,11 @@ namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+<<<<<<< HEAD
 use Cake\ORM\TableRegistry;
 
+=======
+>>>>>>> 7ab8ebe95cb4dedb5c0675eb3b654e207e5d1adc
 
 /**
  * Users Controller
@@ -15,6 +18,10 @@ use Cake\ORM\TableRegistry;
  */
 class UsersController extends AppController
 {
+    public function beforeFilter (Event $event) {
+        parent::beforeFilter($event);
+        $this->Auth->allow(['index']);
+    }
     /**
      * Index method
      *

@@ -24,23 +24,31 @@
             <?= $this->Form->control('description', ['class'=> 'form-control', 'label' => false ,'type' => 'textarea']) ?>
         </div>
         <div class="col-sm-12">
-            <label for="description" class="col-form-label">Price(cash)</label>
+            <label for="cash_price" class="col-form-label">Price(cash)</label>
             <?= $this->Form->control('cash_price', ['class'=> 'form-control text-right', 'label' => false ,'type' => 'number', 'step' => 0.01, 'min' => '0', 'value' => '0', 'required' => true]) ?>
         </div>
         <div class="col-sm-12">
-            <label for="description" class="col-form-label">Price(coins)</label>
+            <label for="coins_price" class="col-form-label">Price(coins)</label>
             <?= $this->Form->control('coins_price', ['class'=> 'form-control text-right', 'label' => false ,'type' => 'number', 'step' => 0.01, 'min' => '0', 'value' => '0', 'required' => true]) ?>
+        </div>
+        <div class="col-sm-12 mb-3">
+            <label for="cash_price" class="col-form-label">PDF File</label>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile" name="pdf_file" accept=".pdf">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
         </div>
         <div class="col-sm-12">
             <button class="btn btn-primary" type="submit">Add E-Book</button>
         </div>
+        
     </div>
     <div class="col-sm-6">
         <h4>Cover Image</h4>
         <div class="col-sm-12">
             <?= $this->Html->image('default-image.jpg', ['class' => 'img-fluid preview', 'style' => ['cursor: pointer']]) ?>
         </div>
-        <?= $this->Form->control('cover_image', ['type' => 'file', 'class' => 'd-none uploader', 'label' => false]) ?>
+        <?= $this->Form->control('cover_image', ['type' => 'file', 'class' => 'd-none uploader', 'label' => false, 'accept' => 'image/*']) ?>
     </div>
     
 </div>
@@ -57,6 +65,7 @@
          }
     }
     $(document).ready(function () {
+        bsCustomFileInput.init()
         $('.preview').on('click', function () {
             $('.uploader').trigger('click');
         });
