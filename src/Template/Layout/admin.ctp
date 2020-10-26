@@ -12,6 +12,7 @@ $controller = strtolower($this->request->params['controller']);
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
 </head>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
 <body>
   <nav class="navbar navbar-expand-lg navbar-custom">
 <ul class="nav nav-pills link">
@@ -59,6 +60,7 @@ $controller = strtolower($this->request->params['controller']);
       </ol>
       
     </nav>
+    <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>
 </div>
     <footer>
