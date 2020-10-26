@@ -28,17 +28,19 @@ $controller = strtolower($this->request->params['controller']);
             <li class="nav nav-pills">
                 <?= $this->Html->link('Feeds', ['prefix' => 'admin', 'controller' => '', 'action' => 'index'], ['class' => $controller === "" ? 'nav-link active' : 'nav-link']) ?>
             </li>
-            
+            <li class="nav nav-pills">
+                <?= $this->Html->link('Update', ['prefix' => 'admin', 'controller' => 'Users', 'action' => 'index'], ['class' => $controller === "users" ? 'nav-link active' : 'nav-link']) ?>
+            </li>
         </ul>
         <ul class="nav navbar-nav ml-auto">
-            <li><a class="nav-link" href="">Login</a></li>
+            <li> <?= $this->Html->link('Login', ['prefix' => 'admin','controller' => 'Users', 'action' => 'login'], ['class' => $controller === "users" ? 'nav-link active' : 'nav-link']) ?></li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">
                     User
                 </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">Profile</a>
-                <a class="dropdown-item" href="#">logout</a>
+                <a class="dropdown-item" href="#"><?= $this->Html->link('Logout', ['prefix' => 'admin','controller' => 'Users', 'action' => 'logout'], ['class' => $controller === "users" ? 'nav-link active' : 'nav-link']) ?></a>
             </div>
         </li>
         </ul>
