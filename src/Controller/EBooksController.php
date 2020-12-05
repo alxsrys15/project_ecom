@@ -35,7 +35,7 @@ class EBooksController extends AppController
         }
         $EBooks = $this->paginate($query, ['limit' => 9]);
 
-        $this->set(compact('EBooks'));
+        $this->set(compact('eBooks'));
     }
 
     /**
