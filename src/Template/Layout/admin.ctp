@@ -18,7 +18,7 @@ $controller = strtolower($this->request->params['controller']);
 <body>
   <nav class="navbar navbar-expand-lg navbar-custom">
 <ul class="nav nav-pills link">
-      <li class="nav nav-pills"><a class="nav-link" href="#">Alex</a></li>
+      <li class="nav nav-pills"><a class="nav-link" href="/admin">E-coin Store</a></li>
         <li class="nav nav-pills">
             <?= $this->Html->link('Users', ['prefix' => 'admin', 'controller' => 'Users', 'action' => 'index'], ['class' => $controller === "users" ? 'nav-link active' : 'nav-link']) ?>
         </li>
