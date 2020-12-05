@@ -85,16 +85,6 @@ class EBooksTable extends Table
             ->requirePresence('pdf_file', 'create')
             ->notEmptyFile('pdf_file');
 
-        $validator
-            ->decimal('cash_price')
-            ->requirePresence('cash_price', 'create')
-            ->notEmptyString('cash_price');
-
-        $validator
-            ->decimal('coins_price')
-            ->requirePresence('coins_price', 'create')
-            ->notEmptyString('coins_price');
-
         return $validator;
     }
 }
