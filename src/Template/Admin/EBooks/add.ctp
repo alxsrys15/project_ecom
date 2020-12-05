@@ -23,14 +23,6 @@
             <label for="description" class="col-form-label">Description</label>
             <?= $this->Form->control('description', ['class'=> 'form-control', 'label' => false ,'type' => 'textarea']) ?>
         </div>
-        <div class="col-sm-12">
-            <label for="cash_price" class="col-form-label">Price(cash)</label>
-            <?= $this->Form->control('cash_price', ['class'=> 'form-control text-right', 'label' => false ,'type' => 'number', 'step' => 0.01, 'min' => '0', 'value' => '0', 'required' => true]) ?>
-        </div>
-        <div class="col-sm-12">
-            <label for="coins_price" class="col-form-label">Price(coins)</label>
-            <?= $this->Form->control('coins_price', ['class'=> 'form-control text-right', 'label' => false ,'type' => 'number', 'step' => 0.01, 'min' => '0', 'value' => '0', 'required' => true]) ?>
-        </div>
         <div class="col-sm-12 mb-3">
             <label for="cash_price" class="col-form-label">PDF File</label>
             <div class="custom-file">
