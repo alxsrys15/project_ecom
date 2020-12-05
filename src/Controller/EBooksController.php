@@ -33,7 +33,7 @@ class EBooksController extends AppController
         if (isset($this->request->query['s']) && !empty($this->request->query['s'])) {
             $query->where(['title LIKE' => '%'.$this->request->query['s'].'%']);
         }
-        $EBooks = $this->paginate($query, ['limit' => 9]);
+        $eBooks = $this->paginate($query, ['limit' => 9]);
 
         $this->set(compact('eBooks'));
     }
