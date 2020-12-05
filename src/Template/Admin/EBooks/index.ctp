@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\EBook[]|\Cake\Collection\CollectionInterface $eBooks
  */
 ?>
-<?= $this->Html->link('Add new E-Book', ['prefix' => 'admin', 'controller' => 'Ebooks', 'action' => 'add'], ['class' => 'btn btn-primary mb-3']) ?>
+<?= $this->Html->link('Add new E-Book', ['prefix' => 'admin', 'controller' => 'EBooks', 'action' => 'add'], ['class' => 'btn btn-primary mb-3']) ?>
 <div class="eBooks index large-9 medium-8 columns content">
     <h3><?= __('E Books') ?></h3>
     <table cellpadding="0" cellspacing="0" class="table">
@@ -27,8 +27,8 @@
                 <td><?= $this->Number->format($eBook->cash_price) ?></td>
                 <td><?= $this->Number->format($eBook->coins_price) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link('<i class="fa fa-eye" aria-hidden="true"></i>', ['prefix' => 'admin', 'controller' => 'Ebooks', 'action' => 'view', $eBook->id], ['class' => 'btn btn-sm', 'escape' => false]) ?>
-                    <?= $this->Html->link('<i class="fa fa-edit" aria-hidden="true"></i>', ['prefix' => 'admin', 'controller' => 'Ebooks', 'action' => 'edit', $eBook->id], ['class' => 'btn btn-sm', 'escape' => false]) ?>
+                    <?= $this->Html->link('<i class="fa fa-eye" aria-hidden="true"></i>', ['prefix' => 'admin', 'controller' => 'EBooks', 'action' => 'view', $eBook->id], ['class' => 'btn btn-sm', 'escape' => false]) ?>
+                    <?= $this->Html->link('<i class="fa fa-edit" aria-hidden="true"></i>', ['prefix' => 'admin', 'controller' => 'EBooks', 'action' => 'edit', $eBook->id], ['class' => 'btn btn-sm', 'escape' => false]) ?>
                     
                 </td>
             </tr>
