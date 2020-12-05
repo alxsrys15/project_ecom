@@ -19,7 +19,7 @@ $controller = strtolower($this->request->params['controller']);
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <a href="/" class="navbar-brand">
-            <?= $this->Html->image('asdasdecoins.png', ['height' => '40px']) ?>
+            <?= $this->Html->image('ecoins.png', ['height' => '40px']) ?>
             Ecoinstore
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
