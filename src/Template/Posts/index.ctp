@@ -64,7 +64,7 @@
 	<?php else: ?>
 		<div class="row">
 			<div class="col-sm-12">
-				<p class="text-center">No E-books found</p>
+				<p class="text-center">No post found</p>
 			</div>
 		</div>
 	<?php endif ?>
