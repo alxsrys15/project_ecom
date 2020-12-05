@@ -13,9 +13,6 @@
                 <th scope="col">Title</th>
                 <th scope="col">Author</th>
                 <th scope="col">Year Published</th>
-                <th scope="col">Cash Price</th>
-                <th scope="col">Coins Price</th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -24,13 +21,6 @@
                 <td><?= h($eBook->title) ?></td>
                 <td><?= h($eBook->author) ?></td>
                 <td><?= h($eBook->year_published) ?></td>
-                <td><?= $this->Number->format($eBook->cash_price) ?></td>
-                <td><?= $this->Number->format($eBook->coins_price) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link('<i class="fa fa-eye" aria-hidden="true"></i>', ['prefix' => 'admin', 'controller' => 'EBooks', 'action' => 'view', $eBook->id], ['class' => 'btn btn-sm', 'escape' => false]) ?>
-                    <?= $this->Html->link('<i class="fa fa-edit" aria-hidden="true"></i>', ['prefix' => 'admin', 'controller' => 'EBooks', 'action' => 'edit', $eBook->id], ['class' => 'btn btn-sm', 'escape' => false]) ?>
-                    
-                </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
