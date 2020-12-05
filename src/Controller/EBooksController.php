@@ -25,7 +25,7 @@ class EBooksController extends AppController
      */
     public function index()
     {
-        $query = $this->Ebooks->find('all', [
+        $query = $this->EBooks->find('all', [
             'order' => [
                 'created' => 'DESC'
             ]
@@ -33,9 +33,9 @@ class EBooksController extends AppController
         if (isset($this->request->query['s']) && !empty($this->request->query['s'])) {
             $query->where(['title LIKE' => '%'.$this->request->query['s'].'%']);
         }
-        $eBooks = $this->paginate($query, ['limit' => 9]);
+        $EBooks = $this->paginate($query, ['limit' => 9]);
 
-        $this->set(compact('eBooks'));
+        $this->set(compact('EBooks'));
     }
 
     /**
@@ -47,7 +47,7 @@ class EBooksController extends AppController
      */
     public function view($id = null)
     {
-        $eBook = $this->Ebooks->get($id, [
+        $eBook = $this->EBooks->get($id, [
             'contain' => [],
         ]);
 
@@ -121,7 +121,7 @@ class EBooksController extends AppController
     public function download ($id) {
         $this->autoRender = false;
         if ($id && $this->Auth->User('is_active')) {
-            $eBook = $this->Ebooks->get($id);
+            $eBook = $this->EBooks->get($id);
             $file_path = WWW_ROOT . 'assets/' . $eBook->pdf_file;
             if (file_exists($file_path)) {
                 $response = $this->response->withFile($file_path, ['download' => 'true', 'name' => $eBook->pdf_file]);

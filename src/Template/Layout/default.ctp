@@ -28,7 +28,7 @@ $controller = strtolower($this->request->params['controller']);
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <?= $this->Html->link('E-Books', ['prefix' => false, 'controller' => 'Ebooks', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                    <?= $this->Html->link('E-Books', ['prefix' => false, 'controller' => 'EBooks', 'action' => 'index'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav nav-pills">
                     <?= $this->Html->link('Market', ['prefix' => false,'controller' => 'Posts', 'action' => 'index'], ['class' => 'nav-link']) ?>

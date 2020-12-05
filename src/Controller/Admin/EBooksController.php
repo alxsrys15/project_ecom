@@ -28,9 +28,9 @@ class EBooksController extends AppController
     public function index()
     {   
 
-        $eBooks = $this->paginate($this->Ebooks);
+        $EBooks = $this->paginate($this->EBooks);
         
-        $this->set(compact('eBooks'));
+        $this->set(compact('EBooks'));
     }
 
     /**
@@ -42,7 +42,7 @@ class EBooksController extends AppController
      */
     public function view($id = null)
     {
-        $eBook = $this->Ebooks->get($id, [
+        $eBook = $this->EBooks->get($id, [
             'contain' => [],
         ]);
 
@@ -62,7 +62,7 @@ class EBooksController extends AppController
         }
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $new_ebook = $this->Ebooks->newEntity();
+            $new_ebook = $this->EBooks->newEntity();
             $arr_ext = ['jpg', 'jpeg', 'png'];
             $valid_pdf = in_array(pathinfo($data['pdf_file']['name'], PATHINFO_EXTENSION), ['pdf']);
             $valid_image = in_array(pathinfo($data['cover_image']['name'], PATHINFO_EXTENSION), $arr_ext);
@@ -71,8 +71,8 @@ class EBooksController extends AppController
                     $save_data = $data;
                     $save_data['pdf_file'] = $data['pdf_file']['name'];
                     $save_data['cover_images'] = $data['cover_image']['name'];
-                    $new_ebook = $this->Ebooks->patchEntity($new_ebook, $save_data);
-                    if ($this->Ebooks->save($new_ebook)) {
+                    $new_ebook = $this->EBooks->patchEntity($new_ebook, $save_data);
+                    if ($this->EBooks->save($new_ebook)) {
                         $this->Flash->success('Ebook has been added');
                         return $this->redirect(['action' => 'index']);
                     }
@@ -80,7 +80,7 @@ class EBooksController extends AppController
             } else {
                 $this->Flash->error('Invalid file format');
             }
-            // if ($this->Ebooks->save($eBook)) {
+            // if ($this->EBooks->save($eBook)) {
             //     $this->Flash->success(__('The e book has been saved.'));
 
             //     return $this->redirect(['action' => 'index']);
@@ -99,12 +99,12 @@ class EBooksController extends AppController
      */
     public function edit($id = null)
     {
-        $eBook = $this->Ebooks->get($id, [
+        $eBook = $this->EBooks->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $eBook = $this->Ebooks->patchEntity($eBook, $this->request->getData());
-            if ($this->Ebooks->save($eBook)) {
+            $eBook = $this->EBooks->patchEntity($eBook, $this->request->getData());
+            if ($this->EBooks->save($eBook)) {
                 $this->Flash->success(__('The e book has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -124,7 +124,7 @@ class EBooksController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $eBook = $this->Ebooks->get($id);
+        $eBook = $this->EBooks->get($id);
         if ($this->EBooks->delete($eBook)) {
             $this->Flash->success(__('The e book has been deleted.'));
         } else {
