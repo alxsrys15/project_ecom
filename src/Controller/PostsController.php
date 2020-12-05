@@ -28,7 +28,7 @@ class PostsController extends AppController
     {
         $query = $this->Posts->find('all', [
             'order' => [
-                'modified' => 'DESC'
+                'Posts.modified' => 'DESC'
             ],
             'contain' => [
                 'Users'
