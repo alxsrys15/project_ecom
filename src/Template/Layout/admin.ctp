@@ -23,7 +23,7 @@ $controller = strtolower($this->request->params['controller']);
             <?= $this->Html->link('Users', ['prefix' => 'admin', 'controller' => 'Users', 'action' => 'index'], ['class' => $controller === "users" ? 'nav-link active' : 'nav-link']) ?>
         </li>
         <li class="nav nav-pills">
-            <?= $this->Html->link('E-Books', ['prefix' => 'admin', 'controller' => 'Ebooks', 'action' => 'index'], ['class' => $controller === "ebooks" ? 'nav-link active' : 'nav-link']) ?>
+            <?= $this->Html->link('E-Books', ['prefix' => 'admin', 'controller' => 'EBooks', 'action' => 'index'], ['class' => $controller === "ebooks" ? 'nav-link active' : 'nav-link']) ?>
         </li>
         <li class="nav nav-pills">
             <?= $this->Html->link('Packages', ['prefix' => 'admin', 'controller' => 'Packages', 'action' => 'index'], ['class' => $controller === "packages" ? 'nav-link active' : 'nav-link']) ?>

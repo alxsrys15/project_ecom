@@ -28,9 +28,9 @@ class EBooksController extends AppController
     public function index()
     {   
 
-        $EBooks = $this->paginate($this->EBooks);
+        $eBooks = $this->paginate($this->EBooks);
         
-        $this->set(compact('EBooks'));
+        $this->set(compact('eBooks'));
     }
 
     /**
