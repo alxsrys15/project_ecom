@@ -41,4 +41,10 @@ class EBook extends Entity
         'created' => true,
         'modified' => true,
     ];
+
+    protected $_virtual = ['images'];
+
+    protected function _getImages () {
+        return explode(',', $this->cover_images);
+    }
 }

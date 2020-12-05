@@ -16,7 +16,9 @@ class EBooksController extends AppController
 
     public function beforeFilter (Event $event) {
         parent::beforeFilter($event);
-        $this->Auth->allow(['index','add','edit','view']);
+        if (!$this->Auth->User('is_admin')) {
+            return $this->redirect($this->referer());
+        }
     }
     /**
      * Index method
@@ -97,7 +99,7 @@ class EBooksController extends AppController
      */
     public function edit($id = null)
     {
-        $eBook = $this->EBooks->get($id, [
+        $eBook = $this->Ebooks->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {

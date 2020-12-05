@@ -1,51 +1,90 @@
 <?php 
 $controller = strtolower($this->request->params['controller']);
+
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ECOMMERCE</title>
+    <title>
+        E-coins Store -
+        <?= $this->fetch('title') ?>
+    </title>
     <!-- CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <?= $this->Html->css(['bootstrap.min', 'tree_maker-min']) ?>
 
     <!-- jQuery and JS bundle w/ Popper.js -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <?= $this->Html->script(['jquery.min', 'bootstrap.min', 'https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js', 'https://cdn.jsdelivr.net/npm/sweetalert2@10', 'tree_maker-min']) ?>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-custom">
-        <ul class="nav nav-pills link">
-            <li class="nav nav-pills"><a class="nav-link" href="#">Alex</a></li>
-            <li class="nav nav-pills">
-                <?= $this->Html->link('Users', ['prefix' => 'admin', 'controller' => 'Users', 'action' => 'index'], ['class' => $controller === "users" ? 'nav-link active' : 'nav-link']) ?>
-            </li>
-            <li class="nav nav-pills">
-                <?= $this->Html->link('E-Books', ['prefix' => 'admin', 'controller' => 'Ebooks', 'action' => 'index'], ['class' => $controller === "ebooks" ? 'nav-link active' : 'nav-link']) ?>
-            </li>
-            <li class="nav nav-pills">
-                <?= $this->Html->link('Packages', ['prefix' => 'admin', 'controller' => 'Packages', 'action' => 'index'], ['class' => $controller === "packages" ? 'nav-link active' : 'nav-link']) ?>
-            </li>
-            <li class="nav nav-pills">
-                <?= $this->Html->link('Feeds', ['prefix' => 'admin', 'controller' => '', 'action' => 'index'], ['class' => $controller === "" ? 'nav-link active' : 'nav-link']) ?>
-            </li>
-            <li class="nav nav-pills">
-                <?= $this->Html->link('Update', ['prefix' => 'admin', 'controller' => 'Users', 'action' => 'index'], ['class' => $controller === "users" ? 'nav-link active' : 'nav-link']) ?>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav ml-auto">
-            <li> <?= $this->Html->link('Login', ['prefix' => 'admin','controller' => 'Users', 'action' => 'login'], ['class' => $controller === "users" ? 'nav-link active' : 'nav-link']) ?></li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">
-                    User
-                </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Profile</a>
-                <a class="dropdown-item" href="#"><?= $this->Html->link('Logout', ['prefix' => 'admin','controller' => 'Users', 'action' => 'logout'], ['class' => $controller === "users" ? 'nav-link active' : 'nav-link']) ?></a>
-            </div>
-        </li>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <a href="/" class="navbar-brand">
+            <?= $this->Html->image('ecoins.png', ['height' => '40px']) ?>
+            Ecoinstore
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <?= $this->Html->link('E-Books', ['prefix' => false, 'controller' => 'Ebooks', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                </li>
+                <li class="nav nav-pills">
+                    <?= $this->Html->link('Market', ['prefix' => false,'controller' => 'Posts', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                </li>
+            </ul>
+        </div>
+        <?php if (($controller == "posts" || $controller == "ebooks") && $this->request->params['action'] === "index"): ?>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="s" autocomplete="off">
+            </form>
+        <?php endif ?>
+        <ul class="nav navbar-nav mr-auto">
+            <?php if (!$Auth->User()): ?>
+                <li><?= $this->Html->link('Login', ['controller' => 'Users', 'action' => 'login'], ['class' => $controller === "users" ? 'nav-link active' : 'nav-link']) ?></li>
+            <?php else: ?>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">
+                        User
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/profile">My Profile</a>
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                    </div>
+                </li>
+            <?php endif ?>
         </ul>
     </nav>
+    <?= $this->Flash->render() ?>
     <main>
+        <?php if ($Auth->User('id') && !$Auth->User('is_active')): ?>
+        <div class="alert alert-danger" role="alert" style="position: sticky;">
+            Your account is inactive. Please click <a href="#!" data-toggle="modal" data-target="#activationModal">here</a> to activate your account.
+        </div>
+        <div class="modal fade" id="activationModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Activate account</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <?= $this->Form->create(null, ['url' => ['prefix' => false, 'controller' => 'Users', 'action' => 'activateAccount'], 'id' => 'activate-form']) ?>
+                    <div class="modal-body">
+                        
+                        <?= $this->Form->control('activation_code', ['class' => 'form-control', 'required', 'type' => 'text']) ?>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Activate</button>
+                    </div>
+                    <?= $this->Form->end() ?>
+                </div>
+            </div>
+        </div>
+        <?php endif ?>
         <?= $this->fetch('content') ?>
     </main>
     <footer>

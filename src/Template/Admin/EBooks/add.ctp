@@ -65,7 +65,7 @@
          }
     }
     $(document).ready(function () {
-        bsCustomFileInput.init()
+        bsCustomFileInput.init();
         $('.preview').on('click', function () {
             $('.uploader').trigger('click');
         });

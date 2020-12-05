@@ -3,11 +3,6 @@ namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
-<<<<<<< HEAD
-use Cake\ORM\TableRegistry;
-
-=======
->>>>>>> 7ab8ebe95cb4dedb5c0675eb3b654e207e5d1adc
 
 /**
  * Users Controller
@@ -20,7 +15,9 @@ class UsersController extends AppController
 {
     public function beforeFilter (Event $event) {
         parent::beforeFilter($event);
-        $this->Auth->allow(['index']);
+        if (!$this->Auth->User('is_admin')) {
+            return $this->redirect($this->referer());
+        }
     }
     /**
      * Index method
@@ -29,14 +26,15 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $users = $this->paginate($this->Users);
-        $this->viewBuilder()->setLayout('admin');
+        $users = $this->paginate($this->Users->find('all', [
+            'conditions' => [
+                'is_admin' => 0
+            ]
+        ]));
+
         $this->set(compact('users'));
     }
-    public function beforeFilter (Event $event) {
-        parent::beforeFilter($event);
-        $this->Auth->allow(['updateUsers', 'insertUsers', 'login', 'logout']);
-    }
+
     /**
      * View method
      *
@@ -46,7 +44,7 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
-        $user = $this->Users->get('1', [
+        $user = $this->Users->get($id, [
             'contain' => [],
         ]);
 
@@ -82,7 +80,9 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
-        
+        $user = $this->Users->get($id, [
+            'contain' => [],
+        ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
@@ -114,72 +114,20 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-    public function updateUsers ($id = null) {
-        $user = $this->Users->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
-        }
-        $this->set(compact('user'));
-    }
-    public function login () {
+    public function resetPassword () {
+        $this->autoRender = false;
         if ($this->request->is('post')) {
-            $user = $this->Auth->identify();
-                if ($user) {
-                    $this->Auth->setUser($user);
-                    return $this->redirect(['action' => 'view']);
-                }
-            $this->Flash->error('Your username or password is incorrect.');
-    }
-
-    }
-
-    public function logout () {
-        return $this->redirect($this->Auth->logout());
-    }
-
-    public function insertUsers(){
-        $user = $this->Users->newEntity();
-            if ($this->request->is('post')) {
-                $user = $this->Users->patchEntity($user, $this->request->getData());
-                if ($this->Users->save($user)) {
-                    $this->Flash->success(__('The user has been saved.'));
-
-                    return $this->redirect(['action' => 'index']);
-                }
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
-            }
-            $this->set(compact('user'));
-    }
-    public function resetPassword($id = 1){
-        $string = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $string_shuffled = str_shuffle($string);
-        $password = substr($string_shuffled, 1, 7);
-
-        $this->log($password, 'debug');
-
-        $user = $this->Users->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            $user->password = $password;
-            $user->first_name = $password;
-
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
+            $user = $this->Users->get($this->request->data['id']);
+            $data = [
+                'id' => $this->request->data['id'],
+                'password' => $this->request->data['new_password']
+            ];
+            $updated_user = $this->Users->patchEntity($user, $data, ['validate' => false]);
+            if ($this->Users->save($updated_user)) {
+                $this->Flash->success('Password reset success');
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $this->set(compact('user'));
     }
 }

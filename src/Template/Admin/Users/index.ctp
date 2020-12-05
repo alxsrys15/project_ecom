@@ -4,69 +4,31 @@
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
 ?>
-    <link href='https://fonts.googleapis.com/css?family=Adamina' rel='stylesheet'>
-        <style type="text/css">
-            table{
-                border-collapse: collapse;
-                border-spacing: 0;
-                font-family: adamina;
-                cursor: default;
-            }
-            tr:nth-child(odd) {
-                background: #f5f5f5;
-            }
-            tr:hover a{
-                background-color: #007bff;
-                color: white;
-            }
-            tr:hover{
-                background-color: #007bff;
-                color: white;
-            }
-
-        </style>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New User'), ['action' => 'insertUsers']) ?></li>
-        <li><?= $this->Html->link(__('Reset Password'), ['prefix' => 'admin','controller' => 'Users', 'action' => 'resetPassword']) ?></li>
-    </ul>
-</nav>
 <div class="users index large-9 medium-8 columns content">
     <h3><?= __('Users') ?></h3>
-    <table cellpadding="0" cellspacing="0" class="table">
+    <table cellpadding="0" cellspacing="0" class="table table-hover">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('first_name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('last_name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('email') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('password') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('coins_balance') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('contact_no') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('is_admin') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('activation_token') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('reset_token') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Coins</th>
+                <th scope="col">Contact #</th>
+                <th scope="col" class="actions"></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($users as $user): ?>
             <tr>
-                <td><?= $this->Number->format($user->id) ?></td>
+                
                 <td><?= h($user->first_name) ?></td>
                 <td><?= h($user->last_name) ?></td>
                 <td><?= h($user->email) ?></td>
-                <td><?= h($user->password) ?></td>
+                
                 <td><?= $this->Number->format($user->coins_balance) ?></td>
                 <td><?= h($user->contact_no) ?></td>
-                <td><?= $this->Number->format($user->is_admin) ?></td>
-                <td><?= h($user->activation_token) ?></td>
-                <td><?= h($user->reset_token) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
+                <td>
+                   <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#resetPasswordModal" data-id="<?= $user->id ?>">Reset Password</a>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -83,3 +45,48 @@
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
 </div>
+<div class="modal fade" id="resetPasswordModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Reset user password?</h5>
+            </div>
+            <div class="modal-body">
+                <?= $this->Form->create(null, ['action' => 'resetPassword', 'id' => 'reset-password-form']) ?>
+                <?= $this->Form->control('id', ['type' => 'hidden', 'id' => 'user-id']) ?>
+                <div class="input-group">
+                    <input type="text" name="new_password" id="new-password" class="form-control" readonly>
+                    <div class="input-group-append">
+                        <button class="btn btn-success generate-btn" type="button">Generate</button>
+                    </div>
+                </div>
+                <?= $this->Form->end() ?>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" form="reset-password-form" class="btn btn-primary">Reset</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const generateString = length => {
+        let result = "";
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
+    }
+    $(document).ready(function () {
+        $('#resetPasswordModal').on('show.bs.modal', function (e) {
+            const trigger = e.relatedTarget;
+            $('#user-id').val($(trigger).data('id'));
+            $('#new-password').val(generateString(8));
+        });
+        $('.generate-btn').on('click', function () {
+            $('#new-password').val(generateString(8));
+        });
+    });
+</script>

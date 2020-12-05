@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\Auth\DefaultPasswordHasher;
 
 /**
  * User Entity
@@ -16,6 +17,22 @@ use Cake\ORM\Entity;
  * @property int|null $is_admin
  * @property string|null $activation_token
  * @property string|null $reset_token
+ * @property int|null $is_active
+ * @property string|null $invite_code
+ * @property string|null $avatar_image
+ * @property int|null $parent_id
+ * @property int|null $lft
+ * @property int|null $rght
+ * @property int|null $level
+ * @property string|null $userscol
+ * @property int|null $invited_by
+ *
+ * @property \App\Model\Entity\User $parent_user
+ * @property \App\Model\Entity\ActivationCode[] $activation_codes
+ * @property \App\Model\Entity\PackageRequest[] $package_requests
+ * @property \App\Model\Entity\PostComment[] $post_comments
+ * @property \App\Model\Entity\Post[] $posts
+ * @property \App\Model\Entity\User[] $child_users
  */
 class User extends Entity
 {
@@ -38,6 +55,21 @@ class User extends Entity
         'is_admin' => true,
         'activation_token' => true,
         'reset_token' => true,
+        'is_active' => true,
+        'invite_code' => true,
+        'avatar_image' => true,
+        'parent_id' => true,
+        'lft' => true,
+        'rght' => true,
+        'level' => true,
+        'userscol' => true,
+        'invited_by' => true,
+        'parent_user' => true,
+        'activation_codes' => true,
+        'package_requests' => true,
+        'post_comments' => true,
+        'posts' => true,
+        'child_users' => true,
     ];
 
     /**
@@ -48,4 +80,13 @@ class User extends Entity
     protected $_hidden = [
         'password',
     ];
+
+    protected function _setPassword($value)
+    {
+        if (strlen($value)) {
+            $hasher = new DefaultPasswordHasher();
+
+            return $hasher->hash($value);
+        }
+    }
 }

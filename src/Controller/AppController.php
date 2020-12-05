@@ -38,10 +38,23 @@ class AppController extends Controller
      *
      * @return void
      */
+
+    public function beforeFilter (Event $event) {
+        parent::beforeFilter($event);
+        if ($this->Auth->User()) {
+            if ($this->Auth->User('is_admin')) {
+                $this->viewBuilder()->setLayout('admin');
+            }
+        }
+    }
+
+    public function beforeRender (Event $event) {
+        $this->set('Auth', $this->Auth);
+    }
+
     public function initialize()
     {
         parent::initialize();
-        $this->viewBuilder()->setLayout('admin');
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
         ]);
@@ -66,16 +79,13 @@ class AppController extends Controller
                     ]
                 ]
             ],
-            'loginAction' => [
-                'controller' => 'Users',
-                'action' => 'login'
-            ],
+            'loginAction' => '/login',
              // If unauthorized, return them to page they were just on
-            'unauthorizedRedirect' => false
+            'unauthorizedRedirect' => $this->referer()
         ]);
         // Allow the display action so our PagesController
         // continues to work. Also enable the read only actions.
-        $this->Auth->allow(['display', 'view']);
+        // $this->Auth->allow(['display']);
     }
     
 }

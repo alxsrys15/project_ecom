@@ -62,8 +62,8 @@ Router::scope('/', function (RouteBuilder $routes) {
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
-    $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
-
+    $routes->connect('/', ['controller' => 'Home', 'action' => 'index']);
+    $routes->connect('/register', ['controller' => 'Users', 'action' => 'register']);
     $routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
     $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
 
@@ -99,6 +99,15 @@ Router::prefix('admin', function (RouteBuilder $routes) {
     // And have the prefix => admin route element added.
     $routes->connect('/', ['controller' => 'Users', 'action' => 'index']);
     $routes->fallbacks(DashedRoute::class);
+});
+
+Router::prefix('profile', function (RouteBuilder $routes) {
+    // All routes here will be prefixed with `/admin`
+    // And have the prefix => admin route element added.
+    $routes->applyMiddleware('csrf');
+    $routes->connect('/', ['controller' => 'Users', 'action' => 'profile']);
+    $routes->fallbacks(DashedRoute::class);
+
 });
 
 /*

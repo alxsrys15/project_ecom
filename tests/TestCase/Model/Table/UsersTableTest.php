@@ -24,6 +24,10 @@ class UsersTableTest extends TestCase
      */
     public $fixtures = [
         'app.Users',
+        'app.ActivationCodes',
+        'app.PackageRequests',
+        'app.PostComments',
+        'app.Posts',
     ];
 
     /**
@@ -76,6 +80,36 @@ class UsersTableTest extends TestCase
      * @return void
      */
     public function testBuildRules()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test afterSave method
+     *
+     * @return void
+     */
+    public function testAfterSave()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test getUserId method
+     *
+     * @return void
+     */
+    public function testGetUserId()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test adjustCoins method
+     *
+     * @return void
+     */
+    public function testAdjustCoins()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
