@@ -51,12 +51,13 @@ $profile_url = $user->avatar_image ? 'profile_images/'.$user->avatar_image : 'de
             <?= $this->Form->create(null, ['enctype' => 'multipart/form-data', 'action' => '/profile']) ?>
             <div class="row">
                 <div class="col-sm-6">
-                    <div class="col-sm-12">
-                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#changePassModal">Change Password</button>
-                    </div>
+                    
                     <?php if ($user->is_active): ?>
                     <div class="col-sm-12">
                         <h4 class="title">COINS: <?= $user->coins_balance ?></h4>
+                    </div>
+                    <div class="col-sm-12">
+                        <?= $this->Html->link('Add coins', ['controller' => 'CoinRequests', 'action' => 'add'], ['class' => 'btn btn-primary']) ?>
                     </div>
                     <div class="col-sm-12">
                         <label for="invite-code" class="col-form-label">Invite Code</label>
@@ -80,8 +81,16 @@ $profile_url = $user->avatar_image ? 'profile_images/'.$user->avatar_image : 'de
                         <?= $this->Form->control('contact_no', ['class'=> 'form-control', 'label' => false, 'value' => $user->contact_no]) ?>
                     </div>
                     <div class="col-sm-12">
-                        <button class="btn btn-primary">Save</button>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <button class="btn btn-primary">Save</button>
+                            </div>
+                            <div class="col-sm-8">
+                                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#changePassModal">Change Password</button>
+                            </div>
+                        </div>
                     </div>
+                    
                 </div>
                 <div class="col-sm-6" style="padding-top: 10px">
                     <div class="row">

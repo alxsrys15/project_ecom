@@ -7,23 +7,23 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * PayoutRequests Model
+ * CoinRequests Model
  *
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  * @property \App\Model\Table\StatusesTable&\Cake\ORM\Association\BelongsTo $Statuses
  *
- * @method \App\Model\Entity\PayoutRequest get($primaryKey, $options = [])
- * @method \App\Model\Entity\PayoutRequest newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\PayoutRequest[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\PayoutRequest|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\PayoutRequest saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\PayoutRequest patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\PayoutRequest[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\PayoutRequest findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\CoinRequest get($primaryKey, $options = [])
+ * @method \App\Model\Entity\CoinRequest newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\CoinRequest[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\CoinRequest|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\CoinRequest saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\CoinRequest patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\CoinRequest[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\CoinRequest findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class PayoutRequestsTable extends Table
+class CoinRequestsTable extends Table
 {
     /**
      * Initialize method
@@ -35,7 +35,7 @@ class PayoutRequestsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('payout_requests');
+        $this->setTable('coin_requests');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
@@ -43,6 +43,7 @@ class PayoutRequestsTable extends Table
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
+            'joinType' => 'INNER',
         ]);
         $this->belongsTo('Statuses', [
             'foreignKey' => 'status_id',
@@ -63,10 +64,23 @@ class PayoutRequestsTable extends Table
 
         $validator
             ->decimal('amount')
-            ->allowEmptyString('amount');
+            ->requirePresence('amount', 'create')
+            ->notEmptyString('amount');
 
         $validator
-            ->integer('peso_value')
+            ->scalar('payment_image')
+            ->maxLength('payment_image', 500)
+            ->requirePresence('payment_image', 'create')
+            ->notEmptyFile('payment_image');
+
+        $validator
+            ->scalar('payment_reference')
+            ->maxLength('payment_reference', 500)
+            ->requirePresence('payment_reference', 'create')
+            ->notEmptyString('payment_reference');
+
+        $validator
+            ->decimal('peso_value')
             ->allowEmptyString('peso_value');
 
         return $validator;

@@ -9,7 +9,8 @@
                 <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Amount</th>
+                        <th>Coin Amount</th>
+                        <th>Peso Value</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -17,7 +18,8 @@
                     <?php foreach ($payoutRequests as $request): ?>
                     <tr>
                         <td><?= $request->created->format('Y-m-d h:i a') ?></td>
-                        <td>P <?= number_format($request->amount, 2) ?></td>
+                        <td><?= $request->amount ?></td>
+                        <td>P <?= number_format($request->peso_value, 2) ?></td>
                         <td><?= $request->status->name ?></td>
                     </tr>
                     <?php endforeach ?>

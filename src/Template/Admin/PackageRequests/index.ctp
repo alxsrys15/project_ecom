@@ -6,6 +6,7 @@
 					<tr>
 						<th>Date</th>
 						<th>User</th>
+						<th>Package</th>
 						<th>Bank Reference</th>
 						<th>Payment Image</th>
 						<th>Status</th>
@@ -18,6 +19,7 @@
 						<tr>
 							<td><?= $packageRequest->created->format('Y-m-d h:i a') ?></td>
 							<td><?= $packageRequest->user->first_name . ' ' . $packageRequest->user->last_name ?></td>
+							<td><?= $packageRequest->package->name ?></td>
 							<td><?= $packageRequest->payment_reference ? $packageRequest->payment_reference : '-' ?></td>
 							<td>
 								<?php if ($packageRequest->payment_image): ?>

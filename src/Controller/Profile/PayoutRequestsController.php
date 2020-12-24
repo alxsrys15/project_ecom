@@ -50,10 +50,14 @@ class PayoutRequestsController extends AppController
      */
     public function add()
     {
+        $this->loadModel('AdminSettings');
+        $setting = $this->AdminSettings->get(1);
         $payoutRequest = $this->PayoutRequests->newEntity();
         $user = $this->PayoutRequests->Users->get($this->Auth->User('id'));
         if ($this->request->is('post')) {
-            $payoutRequest = $this->PayoutRequests->patchEntity($payoutRequest, $this->request->getData());
+            $data = $this->request->getData();
+            $data['peso_value'] = $data['amount'] * $setting->value;
+            $payoutRequest = $this->PayoutRequests->patchEntity($payoutRequest, $data);
             if ($this->PayoutRequests->save($payoutRequest)) {
                 $this->Flash->success(__('The payout request has been saved.'));
 
@@ -61,9 +65,7 @@ class PayoutRequestsController extends AppController
             }
             $this->Flash->error(__('The payout request could not be saved. Please, try again.'));
         }
-        $users = $this->PayoutRequests->Users->find('list', ['limit' => 200]);
-        $statuses = $this->PayoutRequests->Statuses->find('list', ['limit' => 200]);
-        $this->set(compact('payoutRequest', 'users', 'statuses', 'user'));
+        $this->set(compact('payoutRequest', 'user', 'setting'));
     }
 
     /**

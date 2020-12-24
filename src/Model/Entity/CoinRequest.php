@@ -4,20 +4,22 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * PayoutRequest Entity
+ * CoinRequest Entity
  *
  * @property int $id
- * @property int|null $user_id
- * @property float|null $amount
+ * @property int $user_id
+ * @property float $amount
  * @property int|null $status_id
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
- * @property int|null $peso_value
+ * @property string $payment_image
+ * @property string $payment_reference
+ * @property float|null $peso_value
  *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Status $status
  */
-class PayoutRequest extends Entity
+class CoinRequest extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -34,6 +36,8 @@ class PayoutRequest extends Entity
         'status_id' => true,
         'created' => true,
         'modified' => true,
+        'payment_image' => true,
+        'payment_reference' => true,
         'peso_value' => true,
         'user' => true,
         'status' => true,

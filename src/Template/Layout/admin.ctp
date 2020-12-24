@@ -36,6 +36,7 @@ $controller = strtolower($this->request->params['controller']);
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <?= $this->Html->link('Package Requests', ['prefix' => 'admin', 'controller' => 'PackageRequests', 'action' => 'index'], ['class' => 'dropdown-item']) ?>
                     <?= $this->Html->link('Payout Requests', ['prefix' => 'admin', 'controller' => 'PayoutRequests', 'action' => 'index'], ['class' => 'dropdown-item']) ?>
+                    <?= $this->Html->link('Coin Requests', ['prefix' => 'admin', 'controller' => 'CoinRequests', 'action' => 'index'], ['class' => 'dropdown-item']) ?>
                 </div>
             </li>
         </li>
@@ -51,6 +52,7 @@ $controller = strtolower($this->request->params['controller']);
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/logout">Logout</a>
+                    <?= $this->Html->link('Settings', ['prefix' => 'admin', 'controller' => 'AdminSettings', 'action' => 'index'], ['class' => 'dropdown-item']) ?>
                 </div>
             </li>
         <?php endif ?>
