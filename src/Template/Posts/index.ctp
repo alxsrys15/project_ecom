@@ -28,7 +28,6 @@
 </style>
 <div class="container mt-3">
 	<?php if ($Auth->User('is_active')): ?>
-		<button class="btn btn-primary mb-3">Add Post</button>
 		<?= $this->Html->link('Add Post', ['controller' => 'Posts', 'action' => 'add'], ['class' => 'btn btn-primary']) ?>
 	<?php endif ?>
 	<?php if (count($posts) > 0): ?>
