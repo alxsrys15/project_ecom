@@ -76,6 +76,7 @@ class PackageRequestsController extends AppController
                     }
                 } else {
                     $this->Flash->error('Wrong image format');
+                    return $this->redirect(['action' => 'add']);
                 }
             } elseif ($data['payment_type'] === "coins") {
                 $data['status_id'] = 2;
