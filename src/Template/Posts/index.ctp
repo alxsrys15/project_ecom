@@ -27,10 +27,11 @@
 	}
 </style>
 <div class="container mt-3">
+	<?php if ($Auth->User('is_active')): ?>
+		<button class="btn btn-primary mb-3">Add Post</button>
+		<?= $this->Html->link('Add Post', ['controller' => 'Posts', 'action' => 'add'], ['class' => 'btn btn-primary']) ?>
+	<?php endif ?>
 	<?php if (count($posts) > 0): ?>
-		<?php if ($Auth->User('is_active')): ?>
-			<button class="btn btn-primary mb-3">Add Post</button>
-		<?php endif ?>
 		<div class="row row-cols-3 row-cols-md-3">
 			<?php foreach ($posts as $post): ?>
 			<?php $user_avatar = $post->user->avatar_image ? 'profile_images/'.$post->user->avatar_image : 'default_profile.png'  ?>

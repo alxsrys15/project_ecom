@@ -66,21 +66,19 @@ class PackageRequestsController extends AppController
         if ($this->request->is('post')) {
             $data = $this->request->data;
             $payment_image = $data['payment_image'];
-            
+            $data['user_id'] = $this->Auth->User('id');
             unset($data['payment_image']);
             if ($data['payment_type'] === "bank") {
                 if (in_array(pathinfo($payment_image['name'], PATHINFO_EXTENSION), $arr_ext)) {
                     if (move_uploaded_file($payment_image['tmp_name'], WWW_ROOT . '/img/payment_images/' . $payment_image['name'])) {
                         $data['payment_image'] = $payment_image['name'];
                         $data['status_id'] = 1;
-                        $data['user_id'] = $this->Auth->User('id');
                     }
                 } else {
                     $this->Flash->error('Wrong image format');
                 }
             } elseif ($data['payment_type'] === "coins") {
                 $data['status_id'] = 2;
-                $data['user_id'] = $this->Auth->User('id');
                 $user->coins_balance -= $data['payment_price'];
                 
             }
