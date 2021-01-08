@@ -62,7 +62,7 @@ class PostsController extends AppController
                 'post_id' => $id
             ],
             'order' => [
-                'created' => 'DESC'
+                'PostComments.created' => 'DESC'
             ],
             'contain' => ['Users']
         ]);
